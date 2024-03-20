@@ -3,19 +3,19 @@ export type ToggleProps = {
     classNames?: string;
     checked?: boolean;
     onChange?: (checked: boolean) => void;
-    color?: keyof typeof Colors;
-    size?: keyof typeof Sizes;
+    color?: keyof typeof COLORS;
+    size?: keyof typeof SIZES;
     disabled?: boolean;
 }
 
-const Sizes = {
+const SIZES = {
     xs: "d-toggle-xs",
     sm: "d-toggle-sm",
     md: "d-toggle-md",
     lg: "d-toggle-lg",
 } as const;
 
-const Colors = {
+const COLORS = {
     primary: "d-toggle-primary",
     secondary: "d-toggle-secondary",
     accent: "d-toggle-accent",
@@ -43,8 +43,8 @@ export function Toggle({
             className={`
                 d-toggle
                 ${classNames ?? ""} 
-                ${size ? `${Sizes[size]}`: Sizes.xs} 
-                ${color ? `${Colors[color]}`: Colors.primary}
+                ${size ? `${SIZES[size]}`: SIZES.xs} 
+                ${color ? `${COLORS[color]}`: COLORS.primary}
             `}
             disabled={disabled}
         />

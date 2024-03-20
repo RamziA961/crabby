@@ -1,14 +1,14 @@
 import React from "react";
 import { Button, IconButton, Slider, Toggle } from "@ui";
-import reactsvg from "../assets/react.svg"
+import reactsvg from "../../assets/react.svg";
 
 export function ComponentMenu(): React.ReactElement{
     return (
         <div className="flex flex-col gap-8">
             <div className="flex gap-4">
+                <Slider color="primary"/>
                 <Slider color="success"/>
                 <Slider color="warning"/>
-                <Slider color="primary"/>
                 <Slider color="secondary"/>
             </div>
             <div className="flex gap-2">

@@ -23,8 +23,10 @@
         /* Shortcuts */
         "baseUrl": "./src",
         "paths": {
-            "@ui*": ["./ui", "./ui/*"],
-            "@styles*": ["./styles/src/*"]
+            "@ui": ["./ui"],
+            "@ui/*": ["./ui/*"],
+            "@styles/*": ["./styles/src/*"],
+            "@models/*": ["./models/*"]
         }
     },
     "include": ["src"],

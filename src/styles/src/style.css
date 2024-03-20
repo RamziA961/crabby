@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    @apply w-screen h-screen overflow-hidden box-border m-0 p-0;
+}
+
+body {
+    @apply w-full h-full m-0 p-0;
+}
+
 #root {
     font-family: 'Roboto', sans-serif;
+    @apply w-full h-full;
 }
+

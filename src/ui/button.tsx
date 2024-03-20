@@ -5,8 +5,8 @@ export type ButtonProps = {
     classNames?: string;
     onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
     onHover?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
-    color?: keyof typeof Colors;
-    size?: keyof typeof Sizes;
+    color?: keyof typeof COLORS;
+    size?: keyof typeof SIZES;
     outline?: boolean;
     disabled?: boolean;
     iconProps?: IconProps;
@@ -18,14 +18,14 @@ type IconProps = {
     iconPosition: "start" | "end";
 }
 
-const Sizes = {
+const SIZES = {
     xs: "d-btn-xs",
     sm: "d-btn-sm",
     md: "d-btn-md",
     lg: "d-btn-lg",
 } as const;
 
-const Colors = {
+const COLORS = {
     primary: "d-btn-primary",
     secondary: "d-btn-secondary",
     accent: "d-btn-accent",
@@ -59,8 +59,8 @@ export function Button({
             className={`
                 d-btn 
                 ${classNames ?? ""}
-                ${color ? `${Colors[color]}` : Colors.neutral}
-                ${size ? `${Sizes[size]}` : Sizes.sm}
+                ${color ? `${COLORS[color]}` : COLORS.neutral}
+                ${size ? `${SIZES[size]}` : SIZES.sm}
                 ${outline ? "d-btn-outline" : ""}
                 ${disabled ? "d-btn-disabled" : ""}
             `}

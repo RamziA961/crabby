@@ -59,8 +59,9 @@ export default defineConfig(async () => ({
     },
     resolve: {
         alias: {
-            "@ui": path.resolve(__dirname, "./src/ui"),
-            "@styles": path.resolve(__dirname, "./src/styles/src"),
+            "@ui": path.resolve(__dirname, "./src/ui/"),
+            "@styles": path.resolve(__dirname, "./src/styles/src/"),
+            "@models": path.resolve(__dirname, "./src/models/"),
         },
     }
 }));

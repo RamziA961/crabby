@@ -1,5 +1,6 @@
 export enum GlobalAction {
-    Hello = ""
+    DEVICE_CONNECTED,
+    SET_SELECTED_DEVICE,
 }
 
 export type TGlobalAction = { action: GlobalAction, payload?: {[key: string]: any }};
