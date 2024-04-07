@@ -1,0 +1,16 @@
+#landing-page {
+    @apply min-h-full min-w-full flex flex-col justify-center items-stretch;
+
+    .device-quick-info {
+        @apply flex flex-col gap-2 justify-center items-center prose-lg;
+    }
+    
+    #profile-selector {
+        @apply grid-cols-2;
+
+        .profile-selector-avatar {
+            @apply prose-h1:prose-lg text-center align-middle;
+        }
+    }
+}
+

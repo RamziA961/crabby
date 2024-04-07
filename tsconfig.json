@@ -5,6 +5,11 @@
         "lib": ["ES2020", "DOM", "DOM.Iterable"],
         "module": "ESNext",
         "skipLibCheck": true,
+        
+        /* Reference Types */
+        "types": [
+            "vite-plugin-svgr/client"
+        ],
 
         /* Bundler mode */
         "moduleResolution": "bundler",
@@ -25,8 +30,9 @@
         "paths": {
             "@ui": ["./ui"],
             "@ui/*": ["./ui/*"],
-            "@styles/*": ["./styles/src/*"],
-            "@models/*": ["./models/*"]
+            "@styles/*": ["./styles/*"],
+            "@models/*": ["./models/*"],
+            "@assets/*": ["./assets/*"]
         }
     },
     "include": ["src"],
