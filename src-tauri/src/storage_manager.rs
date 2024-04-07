@@ -1,7 +1,6 @@
 use bytes::Bytes;
 use directories::BaseDirs;
-use serde::{de::DeserializeOwned, Serialize};
-use specta::Type;
+use serde::de::DeserializeOwned;
 use std::{fs, io};
 
 use thiserror::Error;
@@ -42,14 +41,14 @@ impl StorageManager {
         }
     }
 
-    #[cfg(test)]
+    #[cfg(any(test, debug_assertions))]
     pub(crate) fn get_storage_dir_path(&self) -> std::path::PathBuf {
-        std::env::current_dir().unwrap().join("crabby")
+        self.base_dirs.data_local_dir().join("crabby").join("test")
     }
 
-    #[cfg(not(test))]
+    #[cfg(not(any(test, debug_assertions)))]
     pub(crate) fn get_storage_dir_path(&self) -> std::path::PathBuf {
-        return self.base_dirs.data_local_dir().join("crabby");
+        self.base_dirs.data_local_dir().join("crabby")
     }
 
     #[instrument]

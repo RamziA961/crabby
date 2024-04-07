@@ -112,10 +112,18 @@ impl DeviceBuilder {
             acitve_profile: None,
         }
     }
+    
+    pub fn get_id(&self) -> &DeviceId {
+        &self.id
+    }
 
     pub fn with_id(mut self, id: DeviceId) -> Self {
         self.id = id;
         self
+    }
+
+    pub fn get_model(&self) -> &Option<DeviceModel> {
+        &self.model
     }
 
     pub fn with_model(mut self, model: DeviceModel) -> Self {

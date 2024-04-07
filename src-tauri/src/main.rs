@@ -3,6 +3,7 @@
 
 use tauri::async_runtime::RwLock;
 use tauri_specta::ts;
+use tracing::error;
 
 pub mod commands;
 pub mod device;
@@ -12,7 +13,7 @@ pub mod storage_manager;
 
 mod start_up;
 
-fn main() {
+fn main() { 
     ts::export(commands::export_commands(), "../src/bindings.ts").unwrap();
 
     let _ = tracing_subscriber::fmt().pretty().init();
@@ -30,5 +31,6 @@ fn main() {
             commands::profile_commands::delete_profile,
         ])
         .run(tauri::generate_context!())
+        .map_err(|e| error!(e=%e, "FATAL ERROR: Application crashed. {e}"))
         .expect("error while running tauri application");
 }

@@ -21,7 +21,7 @@ pub(crate) enum DeviceManagerError {
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[cfg_attr(test, derive(PartialEq))]
 pub(crate) struct DeviceManager {
-    pub devices: HashMap<DeviceId, Device>,
+    devices: HashMap<DeviceId, Device>,
 }
 
 impl DeviceManager {
@@ -57,8 +57,10 @@ impl DeviceManager {
     ) -> Result<(), DeviceManagerError> {
         self.devices
             .insert(device_id.to_string(), device)
-            .map(|_| ())
-            .ok_or_else(|| DeviceManagerError::DeviceAlreadyRegistered(device_id.to_string()))
+            .map_or_else(
+                || Ok(()), 
+                |_| Err(DeviceManagerError::DeviceAlreadyRegistered(device_id.to_string()))
+            )
     }
 
     pub(crate) fn delete_device(&mut self, device_id: &DeviceId) -> Result<(), DeviceManagerError> {

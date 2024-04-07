@@ -2,11 +2,13 @@ import React from "react";
 
 import { GlobalAction, TGlobalAction } from "@models/global/action";
 import { TGlobalState } from "@models/global";
-import { DeviceImage, TDevice } from "@models/device";
+import { DeviceImage } from "@models/device";
 import { Carousel, Status, StatusIndicator } from "@ui";
 import { DeviceExtendedInfoPanel } from "./device_extended_info_panel";
 
 import "@styles/landing_page.css";
+import { Command, isCommandError } from "@models/command";
+import { Device } from "bindings";
 
 
 export type LandingPageProps = {
@@ -20,6 +22,33 @@ export function LandingPage({
 }: LandingPageProps): React.ReactElement {
     const [infoPanelExpanded, setInfoPanelExpanded] = React.useState(false);
 
+    const getConnectedDevices = React.useCallback(async () => {
+        const res = await Command.getConnectedDevices();
+        if(isCommandError(res)) {
+            return;
+        }
+
+        globalDispatch({
+            action: GlobalAction.SET_KNOWN_DEVICES,
+            payload: {
+                knownDevices: res
+            }
+        });
+        return getConnectedDevices;
+    }, [globalDispatch]);
+    
+    React.useEffect(() => {
+        /* NOTE: This is for testing purposes.
+         * Polling will be replaced with events based communication.
+         */
+        getConnectedDevices();
+        const interval = setInterval(
+            getConnectedDevices,
+            2000
+        );
+        return () => clearInterval(interval);
+    }, [getConnectedDevices])
+
     React.useEffect(() => {
         if(!globalState.selectedDevice && globalState.knownDevices.length > 0) {
             globalDispatch({
@@ -31,7 +60,7 @@ export function LandingPage({
         }
     }, [globalState, globalDispatch]);
 
-    const setDevice = React.useCallback((device: TDevice) => {
+    const setDevice = React.useCallback((device: Device) => {
         globalDispatch({
             action: GlobalAction.SET_SELECTED_DEVICE,
             payload: {
@@ -78,10 +107,10 @@ export function LandingPage({
 
 type DeviceCarouselProps = {
     id?: string;
-    selectedDevice: TDevice;
-    devices: TDevice[];
+    selectedDevice: Device;
+    devices: Device[];
     expandInfo: (event: React.MouseEvent) => void;
-    setSelectedDevice: (device: TDevice) => void;
+    setSelectedDevice: (device: Device) => void;
     disabled?: boolean;
 }
 
@@ -93,7 +122,12 @@ function DeviceCarousel({
     setSelectedDevice,
     disabled = false,
 }: DeviceCarouselProps): React.ReactElement {
-    const selectedDeviceIndex = devices.indexOf(selectedDevice) ?? 0;
+    const selectedDeviceIndex = Math.max(
+        devices
+            .map(d => d.id)
+            .indexOf(selectedDevice.id), 
+        0
+    );
     const onSettled = React.useCallback((index: number) => {
         setSelectedDevice(devices[index]);
     }, [devices, setSelectedDevice]); 
@@ -125,7 +159,7 @@ function DeviceCarousel({
 
 type DeviceAvatarProps = {
     id?: string;
-    device: TDevice;
+    device: Device;
     onClick?: (event: React.MouseEvent) => void;
     selected: boolean;
     connected: boolean;
@@ -154,17 +188,17 @@ function DeviceAvatar({
                 indicatorClassNames="d-badge-sm"
             >
                 <img 
-                    src={`/src/assets/${DeviceImage[device.model.key as keyof typeof DeviceImage]}`}
+                    src={`/src/assets/${DeviceImage[device.model as keyof typeof DeviceImage]}`}
                     className="w-full"
                     onClick={e => onClick?.(e)}
                 />
             </StatusIndicator>
             <div className="device-quick-info">
                 <h3>
-                    { device.name }
+                    { device.id }
                 </h3>
                 <h4 className="">
-                    { device.model.name }
+                    { device.model }
                 </h4>
             </div>
         </div>

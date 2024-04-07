@@ -142,6 +142,7 @@ export class Command {
     }
 
     private static async runCommand<T>(fn: () => Promise<T>): Promise<T | CommandError> {
+        console.log(`Command Invoked: ${fn}`);
         try {
             const res = await fn();
             return res;

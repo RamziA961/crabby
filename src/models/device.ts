@@ -1,4 +1,4 @@
 export const DeviceImage = {
-    m1: "devices/mouse.png",
-    k1: "devices/keyboard.png",
+    M1: "devices/mouse.png",
+    K1: "devices/keyboard.png",
 } as const;

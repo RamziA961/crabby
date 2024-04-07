@@ -62,17 +62,17 @@ impl ProfileManager {
         &mut self,
         device_id: &DeviceId,
         device_model: DeviceModel,
-    ) -> Result<(), ProfileManagerError> {
+    ) -> Result<ProfileId, ProfileManagerError> {
         if !self.device_profile_map.contains_key(device_id) {
             let configuration = DefaultProfileProvider::profile(device_model);
             let profile = Profile::new(device_id, configuration);
-
+            let id = profile.id.to_string();
             self.device_profile_map.insert(
                 device_id.to_string(),
-                [Some(profile.id.to_string()), None, None, None],
+                [Some(id.to_string()), None, None, None],
             );
             self.profiles.insert(profile.id.to_string(), profile);
-            Ok(())
+            Ok(id)
         } else {
             Err(ProfileManagerError::DeviceAlreadyRegistered(
                 device_id.to_string(),
