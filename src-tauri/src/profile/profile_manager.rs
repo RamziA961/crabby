@@ -10,23 +10,6 @@ use crate::{
     storage_manager::{StorageManager, StorageManagerError, Store},
 };
 
-macro_rules! delete_profiles {
-    ($self:ident, $($id:ident),+) => {
-       $(
-           if let Some(profile_id) = $id {
-               $self.profiles.remove(&profile_id);
-           }
-        )+;
-    };
-}
-
-// pub(crate) type ProfileTetrad = (
-//     Option<ProfileId>,
-//     Option<ProfileId>,
-//     Option<ProfileId>,
-//     Option<ProfileId>,
-// );
-
 pub(crate) type ProfileTetrad = [Option<ProfileId>; 4];
 
 #[derive(Debug, Error, Serialize, Deserialize, Type)]

@@ -1,6 +1,7 @@
 use bytes::Bytes;
 use directories::BaseDirs;
-use serde::de::DeserializeOwned;
+use serde::{de::DeserializeOwned, Serialize};
+use specta::Type;
 use std::{fs, io};
 
 use thiserror::Error;

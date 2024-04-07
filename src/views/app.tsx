@@ -6,12 +6,10 @@ function App(): React.ReactElement {
     const [globalState, globalDispatch] = React.useReducer(GlobalReducer, GlobalInitialState);
     
     return (
-        <div>
-            <LandingPage
-                globalState={globalState}
-                globalDispatch={globalDispatch}
-            />
-        </div>
+        <LandingPage
+            globalState={globalState}
+            globalDispatch={globalDispatch}
+        />
     );
 }
 

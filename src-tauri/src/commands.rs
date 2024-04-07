@@ -3,13 +3,13 @@ use specta::{collect_types, functions::FunctionDataType, ExportError, Type, Type
 use thiserror::Error;
 
 use crate::{
-    device::device_manager::DeviceManagerError, profile::profile_manager::ProfileManagerError,
+    commands, device::device_manager::DeviceManagerError, profile::profile_manager::ProfileManagerError
 };
 
 pub mod device_commands;
 pub mod profile_commands;
 
-#[derive(Debug, Error, Serialize, Deserialize, Type)]
+#[derive(Debug, Error, Serialize, Type)]
 pub(crate) enum CommandError {
     #[error(transparent)]
     ProfileManagerError(#[from] ProfileManagerError),
@@ -31,6 +31,7 @@ pub(crate) fn export_commands() -> CommandType {
         device_commands::delete_device,
         device_commands::get_connected_devices,
         profile_commands::get_profile,
+        profile_commands::get_active_profile,
         profile_commands::get_device_profile_ids,
         profile_commands::insert_profile,
         profile_commands::overwrite_profile,

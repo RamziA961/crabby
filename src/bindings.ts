@@ -22,6 +22,10 @@ export function getProfile(profileId: string) {
     return invoke()<Profile>("get_profile", { profileId })
 }
 
+export function getActiveProfile(deviceId: string) {
+    return invoke()<Profile>("get_active_profile", { deviceId })
+}
+
 export function getDeviceProfileIds(deviceId: string) {
     return invoke()<(string | null)[]>("get_device_profile_ids", { deviceId })
 }

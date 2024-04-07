@@ -21,7 +21,7 @@ export function LandingPage({
     const [infoPanelExpanded, setInfoPanelExpanded] = React.useState(false);
 
     React.useEffect(() => {
-        if(!globalState.selectedDevice) {
+        if(!globalState.selectedDevice && globalState.knownDevices.length > 0) {
             globalDispatch({
                 action: GlobalAction.SET_SELECTED_DEVICE,
                 payload: {
@@ -57,7 +57,7 @@ export function LandingPage({
                             }}
                             disabled={infoPanelExpanded}
                         />
-                        <DeviceExtendedInfoPanel
+                        {/*<DeviceExtendedInfoPanel
                             dispatch={globalDispatch}
                             selectedDevice={globalState.selectedDevice}
                             expanded={infoPanelExpanded}
@@ -67,7 +67,7 @@ export function LandingPage({
                                     setInfoPanelExpanded(false);
                                 }
                             }}
-                        />
+                        />*/}
                     </>
                     :
                     <ConnectDeviceAvatar />
@@ -174,10 +174,11 @@ function DeviceAvatar({
 function ConnectDeviceAvatar(): React.ReactElement {
     return (
         <div className="
+            w-full h-full
             flex flex-col justify-center items-center
-            prose"
+            prose-h1:prose-2xl prose-neutral"
         >
-            <h1>Connect a device</h1>
+            <h1>Connect a crabby device</h1>
         </div>
     );
 }
